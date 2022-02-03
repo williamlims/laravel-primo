@@ -1,5 +1,6 @@
 <?php
 
+use App\Jobs\MakeDiv;
 use App\Jobs\MakeSum;
 use App\Jobs\FindMaxPrime;
 use App\Jobs\ConvertCelsius;
@@ -47,4 +48,9 @@ Route::get('soma/{num1}/{num2}', function($num1, $num2){
 Route::get('celsius/{farenheit}', function($farenheit){
     ConvertCelsius::dispatch($farenheit);
     return 'Convertendo...';
+});
+
+Route::get('div/{num1}/{num2}', function($num1, $num2){
+    MakeDiv::dispatch($num1, $num2, auth()->id());
+    return 'Dividindo...';
 });
