@@ -2,6 +2,7 @@
 
 use App\Jobs\MakeSum;
 use App\Jobs\FindMaxPrime;
+use App\Jobs\ConvertCelsius;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 
@@ -41,4 +42,9 @@ Route::get('/notifications', function(){
 Route::get('soma/{num1}/{num2}', function($num1, $num2){
     MakeSum::dispatch($num1, $num2);
     return 'Calculando...';
+});
+
+Route::get('celsius/{farenheit}', function($farenheit){
+    ConvertCelsius::dispatch($farenheit);
+    return 'Convertendo...';
 });
