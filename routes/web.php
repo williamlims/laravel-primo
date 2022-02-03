@@ -1,5 +1,6 @@
 <?php
 
+use App\Jobs\MakeSum;
 use App\Jobs\FindMaxPrime;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
@@ -28,4 +29,16 @@ Route::get('dashboard', function () {
 Route::get('primo/{limit}', function($limit){
     FindMaxPrime::dispatch($limit, auth()->id());
     return 'O calculo será realizado em fila';
+});
+
+Route::get('/notifications', function(){
+    $user = auth()->user();
+    foreach ($user->unreadNotifications as $noti){
+        echo '<h3>' . $noti->data['description'] . '</h3>';
+    }
+});
+
+Route::get('soma/{num1}/{num2}', function($num1, $num2){
+    MakeSum::dispatch($num1, $num2);
+    return 'Calculando...';
 });
